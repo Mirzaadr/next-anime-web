@@ -1,9 +1,9 @@
 import Image from "next/image";
 import { MotionDiv } from "./MotionDiv";
-import { AnimeProp } from "@/types";
+import { MangaProp } from "@/types";
 
 interface Prop {
-  anime: AnimeProp;
+  manga: MangaProp;
   index: number;
 }
 
@@ -12,7 +12,7 @@ const variants = {
   visible: { opacity:1 },
 }
 
-function AnimeCard({ anime, index }: Prop) {
+function MangaCard({ manga, index }: Prop) {
   return (
     <MotionDiv 
       variants={variants}
@@ -28,8 +28,8 @@ function AnimeCard({ anime, index }: Prop) {
     >
       <div className="relative w-full h-[37vh]">
         <Image
-          src={`https://shikimori.one${anime.image.original}`}
-          alt={anime.name}
+          src={`https://shikimori.one${manga.image.original}`}
+          alt={manga.name}
           fill
           className="rounded-xl"
         />
@@ -37,11 +37,11 @@ function AnimeCard({ anime, index }: Prop) {
       <div className="py-4 flex flex-col gap-3">
         <div className="flex justify-between items-center gap-1">
           <h2 className="font-bold text-white text-xl line-clamp-1 w-full">
-            {anime.name}
+            {manga.name}
           </h2>
           <div className="py-1 px-2 bg-[#161921] rounded-sm">
             <p className="text-white text-sm font-bold capitalize">
-              {anime.kind}
+              {manga.kind}
             </p>
           </div>
         </div>
@@ -55,7 +55,7 @@ function AnimeCard({ anime, index }: Prop) {
               className="object-contain"
             />
             <p className="text-base text-white font-bold">
-              {anime.episodes || anime.episodes_aired}
+              {manga.volumes || manga.chapters}
             </p>
           </div>
           <div className="flex flex-row gap-2 items-center">
@@ -66,7 +66,7 @@ function AnimeCard({ anime, index }: Prop) {
               height={18}
               className="object-contain"
             />
-            <p className="text-base font-bold text-[#FFAD49]">{anime.score}</p>
+            <p className="text-base font-bold text-[#FFAD49]">{manga.score}</p>
           </div>
         </div>
       </div>
@@ -74,4 +74,4 @@ function AnimeCard({ anime, index }: Prop) {
   );
 }
 
-export default AnimeCard;
+export default MangaCard;

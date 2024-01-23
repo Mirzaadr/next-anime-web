@@ -1,27 +1,30 @@
 "use client"
-import { fetchAnime } from "@/app/action";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
-import AnimeCard from "./AnimeCard";
 
 let page = 2;
-export type AnimeCard = JSX.Element
 
-function LoadMore() {
+interface LoadMoreProps {
+  loader_fn: (page: number) => Promise<JSX.Element[]>
+}
+
+const LoadMore: React.FC<LoadMoreProps> = ({
+  loader_fn
+}) => {
   const { ref, inView } = useInView()
-  const [data, setData] = useState<AnimeCard[]>([])
+  const [data, setData] = useState<JSX.Element[]>([])
 
   useEffect(() => {
     if (inView) {
-      fetchAnime(page)
+      loader_fn(page)
         .then((res) => {
           setData([...data, ...res])
           page++;
         })
         .catch((err) => {})
     }
-  }, [inView, data])
+  }, [inView, data, loader_fn])
 
   return (
     <>

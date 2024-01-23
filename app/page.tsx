@@ -1,7 +1,5 @@
-import AnimeCard, { AnimeProp } from "@/components/AnimeCard";
 import LoadMore from "../components/LoadMore";
-// import { data } from "./_data";
-import { fetchAnime } from "./action";
+import { fetchAnime } from "../utils/action";
 
 async function Home() {
   const data = await fetchAnime(1)
@@ -13,7 +11,7 @@ async function Home() {
       <section className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-10">
         {data}
       </section>
-      <LoadMore />
+      <LoadMore loader_fn={fetchAnime}/>
     </main>
   );
 }
